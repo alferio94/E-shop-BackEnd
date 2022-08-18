@@ -3,10 +3,15 @@ const express = require('express');
 const app = express();
 const morgan = require('morgan');
 const mongoose = require('mongoose');
+const cors = require('cors');
+
+app.use(cors());
+app.options('*', cors());
 
 //Middleware
 app.use(express.json());
 app.use(morgan('tiny'));
+
 
 //Routes
 const categoriesRoutes = require('./routers/categories');
