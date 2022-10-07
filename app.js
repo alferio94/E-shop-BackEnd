@@ -21,13 +21,16 @@ const ordersRoutes = require('./routers/orders');
 
 const api = process.env.API_URL;
 
+
+//localhost:3000/api/eshop/products
+//Endpoints
 app.use(`${api}/categories`, categoriesRoutes);
 app.use(`${api}/products`, productsRoutes);
 app.use(`${api}/users`, usersRoutes);
 app.use(`${api}/orders`, ordersRoutes);
 
 
-
+//Configuracion de Mongoose (Conexion a BD)
 mongoose.connect(process.env.CONNECTION_STRING, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
@@ -35,7 +38,7 @@ mongoose.connect(process.env.CONNECTION_STRING, {
 })
     .then(() => console.log('Connection is ready'))
     .catch(err => console.log(err));
-app.listen(3000, () =>
-{
-    console.log(`Server running on port ${api}`);
-})
+
+//Init backend
+app.listen(3000, () => console.log(`Server running on endpoint ${api}`));
+//Server running on endpoint /api/v1
