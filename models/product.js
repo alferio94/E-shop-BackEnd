@@ -57,10 +57,13 @@ const productSchema = new mongoose.Schema({
         default: Date.now
     }
 });
+//Generamos un atributo virtual llamado id el cual tendra el mismo valos que el atributo _id que manda mongoDB para hacerlo mas amigable al front end por buenas practicas.
 productSchema.virtual('id').get(function ()
 {
     return this._id.toHexString();
 })
+
+//Hacemos set a la opccion de activar la virtualizacion de el atributo id
 productSchema.set('toJSON', {
     virtuals: true
 })
