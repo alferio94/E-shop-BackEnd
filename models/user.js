@@ -1,17 +1,57 @@
 const mongoose = require('mongoose');
 
-const userSchema = mongoose.Schema({
-    name: String,
-    image: String,
-})
+const userSchema = new mongoose.Schema({
+    name: {
+        type: String,
+        required: true,
+    },
+    email: {
+        type: String,
+        required: true,
+    },
+    passwordHash: {
+        type: String,
+        required: true,
+    },
+    phone: {
+        type: String,
+        required: true,
+    },
+    isAdmin: {
+        type: Boolean,
+        default: false,
+    },
+    street: {
+        type: String,
+        default: ''
+    },
+    apartment: {
+        type: String,
+        default: ''
+    },
+    zip: {
+        type: String,
+        default: ''
+    },
+    city: {
+        type: String,
+        default: ''
+    },
+    country: {
+        type: String,
+        default: ''
+    }
 
-//Generamos un atributo virtual llamado id el cual tendra el mismo valos que el atributo _id que manda mongoDB para hacerlo mas amigable al front end por buenas practicas.
+});
+
 userSchema.virtual('id').get(function ()
 {
     return this._id.toHexString();
-})
-//Hacemos set a la opccion de activar la virtualizacion de el atributo id
+});
+
 userSchema.set('toJSON', {
-    virtuals: true
-})
+    virtuals: true,
+});
+
 exports.User = mongoose.model('User', userSchema);
+exports.userSchema = userSchema;
