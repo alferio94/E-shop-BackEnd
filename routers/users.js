@@ -36,7 +36,7 @@ router.get(`/:id`, async (req, res) =>
 {
     //Excluimos en la solicitud el atributo passwordHash para proteccion
     const user = await User.findById(req.params.id).select('-passwordHash');
-    user ? res.status(200).send(user) : res.status(404).send('Category not found');
+    user ? res.status(200).send(user) : res.status(404).send('User not found');
 });
 
 
@@ -121,7 +121,8 @@ router.post('/login', async (req, res) =>
         //Creamos un Json Web Token(JWT) para validar la identidad del usuario pasando por el momento el id (esto cambiara y pasaremos mas cosas)
         const token = jwt.sign(
             {
-                userId: user.id
+                userId: user.id,
+                isAdmin: user.isAdmin,
             },
             //pasamos la llave secreta que usamos para firmar el jwt
             secret,
