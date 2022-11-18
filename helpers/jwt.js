@@ -26,7 +26,7 @@ function authJwt()
 
 async function isRevoked(req, { payload })
 {
-    console.log(payload)
+    console.log(`JWT information decrypted is: ${JSON.stringify(payload)}`);
     if (!payload.isAdmin)
     {
         return true;
