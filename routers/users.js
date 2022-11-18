@@ -137,6 +137,24 @@ router.post('/login', async (req, res) =>
     {
         return res.status(400).send('Invalid Email or Password')
     }
+});
+router.delete(`/:id`, (req, res) =>
+{
+    User.findByIdAndRemove(req.params.id)
+        .then(user =>
+        {
+            user ?
+                res.send('The user with the given ID was deleted.')
+                : res.status(404).send('The user with the given ID was not found.');
+        }).catch(err => res.status(400).send(err));
+});
+
+router.get('/get/count', async (req, res) =>
+{
+
+    const userCount = await User.countDocuments()
+
+    userCount ? res.send({ userCount }) : res.status(500).json({ success: false })
 })
 
 module.exports = router;
